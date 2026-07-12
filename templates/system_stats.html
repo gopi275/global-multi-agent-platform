@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>System Statistics</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+.card{
+
+    background:#1e293b;
+    padding:25px;
+    margin:15px;
+    border-radius:15px;
+    text-align:center;
+
+}
+
+
+h1{
+    text-align:center;
+}
+
+
+.number{
+
+    font-size:35px;
+    color:#38bdf8;
+
+}
+
+
+a{
+
+color:white;
+text-decoration:none;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>⚙ System Statistics</h1>
+
+
+<div class="card">
+
+<h2>Total Users</h2>
+
+<div class="number">
+
+{{ data.users }}
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Total Tasks</h2>
+
+<div class="number">
+
+{{ data.tasks }}
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Total Reports</h2>
+
+<div class="number">
+
+{{ data.reports }}
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Total Workflows</h2>
+
+<div class="number">
+
+{{ data.workflows }}
+
+</div>
+
+</div>
+
+
+
+<br>
+
+
+<a href="/admin">
+
+⬅ Back To Admin Dashboard
+
+</a>
+
+
+</div>
+
+
+</body>
+
+</html>

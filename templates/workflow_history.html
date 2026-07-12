@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Workflow History</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+}
+
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    background:#1e293b;
+
+}
+
+
+th,td{
+
+    padding:15px;
+    border-bottom:1px solid #334155;
+    text-align:center;
+
+}
+
+
+th{
+
+    background:#2563eb;
+
+}
+
+
+h1{
+
+text-align:center;
+
+}
+
+
+a{
+
+color:white;
+text-decoration:none;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>📜 Workflow History</h1>
+
+
+<table>
+
+
+<tr>
+
+<th>ID</th>
+
+<th>Workflow Name</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+</tr>
+
+
+
+{% for item in history %}
+
+
+<tr>
+
+
+<td>
+
+{{ item._id }}
+
+</td>
+
+
+<td>
+
+{{ item.workflow_name }}
+
+</td>
+
+
+<td>
+
+{{ item.status }}
+
+</td>
+
+
+<td>
+
+{{ item.date }}
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+<br>
+
+
+<a href="/admin">
+
+⬅ Back To Dashboard
+
+</a>
+
+
+</div>
+
+
+</body>
+
+</html>

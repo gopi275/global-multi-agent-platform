@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Workflow Monitor</title>
+
+<style>
+
+body{
+
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+
+}
+
+
+.container{
+
+    max-width:1100px;
+    margin:auto;
+
+}
+
+
+h1{
+
+    text-align:center;
+    color:#38bdf8;
+
+}
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-top:30px;
+    background:#1e293b;
+
+}
+
+
+th{
+
+    background:#2563eb;
+    padding:15px;
+    text-align:center;
+
+}
+
+
+td{
+
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #475569;
+
+}
+
+
+tr:hover{
+
+    background:#334155;
+
+}
+
+
+.status{
+
+    background:#22c55e;
+    padding:6px 15px;
+    border-radius:20px;
+    color:white;
+
+}
+
+
+.back{
+
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 20px;
+    background:#38bdf8;
+    color:black;
+    text-decoration:none;
+    border-radius:8px;
+
+}
+
+
+.empty{
+
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+⚙ AI Workflow Monitor
+</h1>
+
+
+<table>
+
+
+<tr>
+
+<th>Workflow ID</th>
+
+<th>Agent</th>
+
+<th>Task</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+</tr>
+
+
+
+{% if workflows %}
+
+
+{% for workflow in workflows %}
+
+
+<tr>
+
+
+<td>
+
+{{ workflow._id }}
+
+</td>
+
+
+<td>
+
+{{ workflow.agent if workflow.agent else "N/A" }}
+
+</td>
+
+
+<td>
+
+{{ workflow.task if workflow.task else "N/A" }}
+
+</td>
+
+
+<td>
+
+
+{% if workflow.status == "Active" %}
+
+<span class="status">
+
+{{ workflow.status }}
+
+</span>
+
+
+{% else %}
+
+{{ workflow.status }}
+
+{% endif %}
+
+
+</td>
+
+
+<td>
+
+{{ workflow.date if workflow.date else "N/A" }}
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="5" class="empty">
+
+No Workflow Data Found
+
+</td>
+
+</tr>
+
+
+{% endif %}
+
+
+
+</table>
+
+
+
+<a href="/admin/" class="back">
+
+⬅ Back To Dashboard
+
+</a>
+
+
+</div>
+
+
+
+</body>
+
+</html>

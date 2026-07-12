@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Notifications</title>
+
+
+<style>
+
+body{
+
+background:#0f172a;
+color:white;
+font-family:Segoe UI;
+padding:30px;
+
+}
+
+
+.container{
+
+max-width:900px;
+margin:auto;
+
+}
+
+
+h1{
+
+text-align:center;
+
+}
+
+
+.back{
+
+background:#22c55e;
+padding:10px 20px;
+color:white;
+text-decoration:none;
+border-radius:8px;
+
+}
+
+
+
+.notification{
+
+background:#1e293b;
+padding:20px;
+margin:20px 0;
+border-radius:12px;
+
+}
+
+
+
+.title{
+
+font-size:22px;
+color:#38bdf8;
+
+}
+
+
+
+.message{
+
+margin-top:10px;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<a class="back" href="/admin/">
+
+⬅ Dashboard
+
+</a>
+
+
+<h1>
+🔔 Admin Notifications
+</h1>
+
+
+
+{% for item in notifications %}
+
+
+<div class="notification">
+
+
+<div class="title">
+
+{{item.title}}
+
+</div>
+
+
+<div class="message">
+
+{{item.message}}
+
+</div>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</body>
+
+
+</html>

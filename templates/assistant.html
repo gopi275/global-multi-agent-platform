@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>AI Assistant</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Arial;
+    padding:30px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+}
+
+textarea{
+    width:100%;
+    height:150px;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:20px;
+    background:#111827;
+    padding:20px;
+    border-radius:10px;
+}
+
+a{
+    color:white;
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>🤖 AI Assistant</h1>
+
+<br>
+
+<form action="/ask_ai" method="POST">
+
+<textarea
+name="question"
+placeholder="Ask anything..."
+required>
+</textarea>
+
+<br>
+
+<button type="submit">
+🚀 Ask AI
+</button>
+
+</form>
+
+{% if answer %}
+
+<div class="result">
+
+<pre>{{ answer }}</pre>
+
+</div>
+
+{% endif %}
+
+<br>
+
+<a href="/dashboard">
+⬅ Back Dashboard
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>

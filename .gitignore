@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+
+.env
+
+instance/
+
+admin_report.pdf
+
+*.log

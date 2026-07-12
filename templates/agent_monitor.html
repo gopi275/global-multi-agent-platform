@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Agent Monitor</title>
+
+<style>
+
+body{
+background:#0f172a;
+font-family:Arial;
+color:white;
+padding:30px;
+}
+
+h1{
+text-align:center;
+color:#38bdf8;
+margin-bottom:30px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:15px;
+text-align:center;
+}
+
+.running{
+color:#22c55e;
+font-weight:bold;
+}
+
+.idle{
+color:#f59e0b;
+font-weight:bold;
+}
+
+.completed{
+color:#38bdf8;
+font-weight:bold;
+}
+
+.btn{
+display:block;
+width:220px;
+margin:30px auto;
+padding:12px;
+background:#2563eb;
+color:white;
+text-decoration:none;
+text-align:center;
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🤖 Agent Monitor</h1>
+
+<div class="container">
+
+{% for agent in agents %}
+
+<div class="card">
+
+<h2>{{ agent.name }}</h2>
+
+<br>
+
+{% if agent.status == "Running" %}
+<p class="running">🟢 Running</p>
+
+{% elif agent.status == "Idle" %}
+<p class="idle">🟡 Idle</p>
+
+{% else %}
+<p class="completed">🔵 Completed</p>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<a href="/dashboard" class="btn">
+⬅ Back Dashboard
+</a>
+
+</body>
+</html>

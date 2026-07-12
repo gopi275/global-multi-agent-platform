@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Activity Logs</title>
+
+<style>
+
+body{
+background:#0f172a;
+color:white;
+font-family:Segoe UI;
+padding:30px;
+}
+
+
+.container{
+
+max-width:1000px;
+margin:auto;
+
+}
+
+
+table{
+
+width:100%;
+background:#1e293b;
+border-radius:10px;
+overflow:hidden;
+
+}
+
+
+th,td{
+
+padding:15px;
+text-align:center;
+
+}
+
+
+th{
+
+background:#334155;
+
+}
+
+
+a{
+
+color:white;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+📋 Admin Activity Logs
+</h1>
+
+
+<table>
+
+<tr>
+
+<th>Action</th>
+
+<th>User</th>
+
+<th>Date</th>
+
+</tr>
+
+
+{% for log in logs %}
+
+<tr>
+
+<td>
+{{ log.action }}
+</td>
+
+
+<td>
+{{ log.user }}
+</td>
+
+
+<td>
+{{ log.date }}
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+<br>
+
+
+<a href="/admin">
+
+⬅ Back To Dashboard
+
+</a>
+
+
+</div>
+
+
+</body>
+
+</html>
