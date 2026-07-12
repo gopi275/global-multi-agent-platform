@@ -15,9 +15,15 @@ app = Flask(__name__)
 app.register_blueprint(admin)
 app.secret_key = "global-agent-secret-key"
 
+from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["agentflow"]
+client = MongoClient(
+    "mongodb+srv://USERNAME:PASSWORD@cluster0.7cobbpr.mongodb.net/"
+)
+
+db = client["multiagent"]
+
+
 
 tasks_collection = db["tasks"]
 notifications_collection = db["notifications"]
@@ -527,5 +533,10 @@ def leaderboard():
 
 
 
+import os
+
 if __name__ == "__main__":
-   app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000))
+    )
