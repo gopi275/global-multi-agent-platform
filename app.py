@@ -18,12 +18,10 @@ app.secret_key = "global-agent-secret-key"
 from pymongo import MongoClient
 
 client = MongoClient(
-    "mongodb+srv://USERNAME:PASSWORD@cluster0.7cobbpr.mongodb.net/"
+    "mongodb+srv://admin:Admin12345@cluster0.7cobbpr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 )
 
 db = client["multiagent"]
-
-
 
 tasks_collection = db["tasks"]
 notifications_collection = db["notifications"]
