@@ -97,3 +97,54 @@ Features:
 ---
 
 ## 📂 Project Structure
+
+global-multi-agent-platform/
+
+├── app.py
+├── database.py
+├── requirements.txt
+├── Procfile
+│
+├── agents/
+│ ├── research.py
+│ ├── coding.py
+│ ├── testing.py
+│ └── report.py
+│
+├── routes/
+│ └── admin.py
+│
+├── workflow/
+│ ├── engine.py
+│ └── live.py
+│
+├── templates/
+│ ├── login.html
+│ ├── dashboard.html
+│ ├── workflow_center.html
+│ └── ...
+│
+└── README.md
+
+---
+
+## Run Project
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+Open in browser:
+
+http://127.0.0.1:5000
+
+---
+
+## Author
+
+Gopinath S
+
+B.Sc Computer Science
+
+Global Multi Agent Workflow Automation Platform
