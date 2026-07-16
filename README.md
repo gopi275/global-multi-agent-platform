@@ -2,15 +2,15 @@
 
 ## 📌 Project Overview
 
-Global Multi Agent Workflow Automation Platform is an AI-based system that automates complex tasks using multiple intelligent agents.
+Global Multi Agent Workflow Automation Platform is an AI-powered workflow automation system that uses multiple intelligent agents to execute tasks automatically.
 
-The system divides tasks into different stages and assigns each stage to a specialized AI agent.
+The platform divides complex workflows into multiple stages and assigns each stage to a specialized AI agent for processing, testing, monitoring, and reporting.
 
 ---
 
 ## 🎯 Objective
 
-The main objective of this project is to automate workflow processes using AI agents and provide efficient task management, monitoring, and reporting.
+The main objective of this project is to automate workflow processes using intelligent AI agents and provide efficient task management, workflow monitoring, analytics, and reporting capabilities.
 
 ---
 
@@ -18,54 +18,63 @@ The main objective of this project is to automate workflow processes using AI ag
 
 ### 👤 User Module
 
-- User Registration
-- User Login
-- Create Tasks
-- View Reports
-- Track Workflow Status
+* User Registration
+* User Login
+* Create and Manage Tasks
+* View Reports
+* Track Workflow Status
+* Notifications
+* AI Assistant Support
 
+---
 
-### 🤖 AI Multi Agent System
+### 🤖 AI Multi-Agent System
 
-### Research Agent
+#### 🔍 Research Agent
 
-- Collects information
-- Performs analysis
+* Collects information
+* Performs analysis
+* Generates research output
 
+#### 💻 Coding Agent
 
-### Coding Agent
+* Generates solutions
+* Creates code output
+* Automates development tasks
 
-- Generates solutions
-- Creates code output
+#### 🧪 Testing Agent
 
+* Validates outputs
+* Detects errors
+* Performs workflow verification
 
-### Testing Agent
+#### 📄 Report Agent
 
-- Validates output
-- Finds errors
-
-
-### Report Agent
-
-- Generates final reports
-
+* Generates reports
+* Creates workflow summaries
+* Produces final documentation
 
 ---
 
 ## 👨‍💼 Admin Module
 
-Features:
+### Features
 
-- Admin Login
-- Dashboard Statistics
-- User Management
-- Delete Users
-- Workflow Monitoring
-- Analytics Dashboard
-- Notifications
-- Agent Leaderboard
-- PDF Report Generation
-
+* Admin Login
+* Dashboard Statistics
+* User Management
+* Delete Users
+* Workflow Monitoring
+* Workflow History
+* Analytics Dashboard
+* Notifications Center
+* Agent Performance Monitoring
+* Agent Leaderboard
+* Activity Logs
+* PDF Report Generation
+* AI Reports
+* AI Decision Logs
+* Workflow Center
 
 ---
 
@@ -73,78 +82,110 @@ Features:
 
 ### Frontend
 
-- HTML
-- CSS
-- JavaScript
-
+* HTML5
+* CSS3
+* JavaScript
 
 ### Backend
 
-- Python
-- Flask
-
+* Python
+* Flask
 
 ### Database
 
-- MongoDB
-
+* MongoDB Atlas
 
 ### Reporting
 
-- ReportLab
+* ReportLab
 
+### Version Control
+
+* Git
+* GitHub
 
 ---
 
 ## 📂 Project Structure
 
+```text
 global-multi-agent-platform/
 
 ├── app.py
 ├── database.py
 ├── requirements.txt
 ├── Procfile
+├── README.md
 │
 ├── agents/
-│ ├── research.py
-│ ├── coding.py
-│ ├── testing.py
-│ └── report.py
+│   ├── research.py
+│   ├── coding.py
+│   ├── testing.py
+│   └── report.py
 │
 ├── routes/
-│ └── admin.py
+│   └── admin.py
 │
 ├── workflow/
-│ ├── engine.py
-│ └── live.py
+│   ├── engine.py
+│   └── live.py
 │
 ├── templates/
-│ ├── login.html
-│ ├── dashboard.html
-│ ├── workflow_center.html
-│ └── ...
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── workflow_center.html
+│   ├── analytics.html
+│   └── ...
 │
-└── README.md
+└── admin/
+```
 
 ---
 
-## Run Project
+## ▶️ Installation
 
 ```bash
+git clone https://github.com/gopi275/global-multi-agent-platform.git
+
+cd global-multi-agent-platform
+
 pip install -r requirements.txt
+
 python app.py
 ```
 
-Open in browser:
+---
 
+## 🌐 Run Application
+
+Open your browser and visit:
+
+```text
 http://127.0.0.1:5000
+```
 
 ---
 
-## Author
+## 📊 Key Modules
 
-Gopinath S
+* Dashboard
+* Task Management
+* Workflow Center
+* Workflow Analytics
+* Agent Monitor
+* AI Assistant
+* Notifications
+* Reports
+* Admin Panel
+
+---
+
+## 👨‍💻 Author
+
+**Gopinath S**
 
 B.Sc Computer Science
 
 Global Multi Agent Workflow Automation Platform
+
+2026
