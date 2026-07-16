@@ -8,55 +8,64 @@
 <style>
 
 body{
-    background:#0f172a;
+    background:#020617;
     color:white;
     font-family:Segoe UI;
     padding:30px;
 }
 
-
 .container{
-    max-width:1000px;
+    max-width:1200px;
     margin:auto;
 }
 
 
-table{
-
-    width:100%;
-    border-collapse:collapse;
-    background:#1e293b;
-
-}
-
-
-th,td{
-
-    padding:15px;
-    border-bottom:1px solid #334155;
-    text-align:center;
-
-}
-
-
-th{
-
-    background:#2563eb;
-
-}
-
-
 h1{
+    text-align:center;
+    color:#38bdf8;
+    margin-bottom:30px;
+}
 
-text-align:center;
+
+.card{
+
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:20px;
 
 }
 
 
-a{
+.status{
 
-color:white;
-text-decoration:none;
+    background:#166534;
+    color:#86efac;
+    padding:8px 15px;
+    border-radius:20px;
+
+}
+
+
+.agent{
+
+    background:#0f172a;
+    padding:15px;
+    margin-top:15px;
+    border-radius:15px;
+
+}
+
+
+.back{
+
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
 
 }
 
@@ -72,77 +81,85 @@ text-decoration:none;
 <div class="container">
 
 
-<h1>📜 Workflow History</h1>
-
-
-<table>
-
-
-<tr>
-
-<th>ID</th>
-
-<th>Workflow Name</th>
-
-<th>Status</th>
-
-<th>Date</th>
-
-</tr>
+<h1>
+📜 Workflow Execution History
+</h1>
 
 
 
 {% for item in history %}
 
 
-<tr>
+<div class="card">
 
 
-<td>
-
-{{ item._id }}
-
-</td>
+<h2>
+{{item.workflow_name}}
+</h2>
 
 
-<td>
-
-{{ item.workflow_name }}
-
-</td>
+<p>
+Task : {{item.task}}
+</p>
 
 
-<td>
-
-{{ item.status }}
-
-</td>
+<br>
 
 
-<td>
+<span class="status">
 
-{{ item.date }}
+{{item.status}}
 
-</td>
+</span>
 
 
-</tr>
+
+<h3 style="margin-top:20px;">
+Agents
+</h3>
+
+
+{% for agent in item.agents %}
+
+
+<div class="agent">
+
+
+<b>
+{{agent.agent}}
+</b>
+
+<br><br>
+
+
+Status :
+{{agent.status}}
+
+
+<br>
+
+
+Output :
+{{agent.output}}
+
+
+</div>
 
 
 {% endfor %}
 
 
 
-</table>
+</div>
 
 
-<br>
+
+{% endfor %}
 
 
-<a href="/admin">
 
-⬅ Back To Dashboard
-
+<a class="back" href="/admin/dashboard">
+⬅ Back Dashboard
 </a>
 
 

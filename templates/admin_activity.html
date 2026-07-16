@@ -8,10 +8,12 @@
 <style>
 
 body{
-background:#0f172a;
+
+background:#020617;
 color:white;
 font-family:Segoe UI;
 padding:30px;
+
 }
 
 
@@ -23,38 +25,62 @@ margin:auto;
 }
 
 
-table{
+h1{
 
-width:100%;
-background:#1e293b;
-border-radius:10px;
-overflow:hidden;
+text-align:center;
+margin-bottom:30px;
 
 }
 
 
-th,td{
+table{
 
-padding:15px;
-text-align:center;
+width:100%;
+background:#1e293b;
+border-radius:15px;
+overflow:hidden;
 
 }
 
 
 th{
 
+background:#2563eb;
+padding:15px;
+
+}
+
+
+td{
+
+padding:15px;
+border-bottom:1px solid #334155;
+
+}
+
+
+tr:hover{
+
 background:#334155;
 
 }
 
 
-a{
+.back{
 
+display:inline-block;
+margin-top:30px;
+background:#2563eb;
+padding:12px 25px;
 color:white;
+text-decoration:none;
+border-radius:10px;
 
 }
 
+
 </style>
+
 
 </head>
 
@@ -70,35 +96,46 @@ color:white;
 </h1>
 
 
+
 <table>
+
 
 <tr>
 
-<th>Action</th>
+<th>
+Action
+</th>
 
-<th>User</th>
+<th>
+User
+</th>
 
-<th>Date</th>
+<th>
+Date
+</th>
+
 
 </tr>
 
 
+
 {% for log in logs %}
+
 
 <tr>
 
 <td>
-{{ log.action }}
+{{log.action}}
 </td>
 
 
 <td>
-{{ log.user }}
+{{log.user}}
 </td>
 
 
 <td>
-{{ log.date }}
+{{log.date}}
 </td>
 
 
@@ -108,17 +145,15 @@ color:white;
 {% endfor %}
 
 
+
 </table>
 
 
-<br>
 
-
-<a href="/admin">
-
+<a class="back" href="/admin">
 ⬅ Back To Dashboard
-
 </a>
+
 
 
 </div>

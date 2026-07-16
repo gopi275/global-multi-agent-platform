@@ -1,149 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>System Health Monitor</title>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>System Health Dashboard</title>
 
 <style>
 
-body{
-
-background:#0f172a;
-color:white;
-font-family:Segoe UI;
-padding:30px;
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
 }
 
+body{
+
+    background:#0f172a;
+    color:white;
+    padding:30px;
+
+}
 
 .container{
 
-max-width:900px;
-margin:auto;
+    max-width:1000px;
+    margin:auto;
 
 }
-
-
-.card{
-
-background:#1e293b;
-padding:25px;
-margin:20px;
-border-radius:15px;
-
-}
-
-
-.status{
-
-font-size:22px;
-color:#22c55e;
-
-}
-
 
 h1{
 
-text-align:center;
+    text-align:center;
+    margin-bottom:40px;
 
 }
 
+.cards{
 
-a{
-
-color:white;
-text-decoration:none;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
 
 }
 
+.card{
+
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+}
+
+.card h3{
+
+    margin-bottom:15px;
+    color:#94a3b8;
+
+}
+
+.status{
+
+    font-size:24px;
+    font-weight:bold;
+    color:#22c55e;
+
+}
+
+.time{
+
+    color:#38bdf8;
+    font-size:20px;
+
+}
+
+.back{
+
+    display:inline-block;
+    margin-top:30px;
+    padding:12px 20px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+
+}
+
+@media(max-width:768px){
+
+.cards{
+
+    grid-template-columns:1fr;
+
+}
+
+}
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
 <h1>
-🖥 System Health Monitor
+🏥 System Health Dashboard
 </h1>
 
-
+<div class="cards">
 
 <div class="card">
 
-<h2>Flask Server</h2>
+<h3>MongoDB Status</h3>
 
-<p class="status">
-
-🟢 Running
-
-</p>
+<div class="status">
+✅ Connected
+</div>
 
 </div>
 
 
-
 <div class="card">
 
-<h2>MongoDB Database</h2>
+<h3>Flask Server</h3>
 
-<p class="status">
-
-🟢 Connected
-
-</p>
+<div class="status">
+✅ Running
+</div>
 
 </div>
 
 
-
 <div class="card">
 
-<h2>AI Agents</h2>
+<h3>AI Agents</h3>
 
-<p class="status">
-
-🟢 Active
-
-</p>
+<div class="status">
+✅ Active
+</div>
 
 </div>
 
 
-
 <div class="card">
 
-<h2>Workflow Engine</h2>
+<h3>System Time</h3>
 
-<p class="status">
+<div class="time" id="clock"></div>
 
-🟢 Ready
-
-</p>
+</div>
 
 </div>
 
 
-
-<br>
-
-
-<a href="/admin">
-
+<a href="/admin" class="back">
 ⬅ Back To Dashboard
-
 </a>
 
-
-
 </div>
 
+
+<script>
+
+function updateClock(){
+
+document.getElementById("clock").innerHTML =
+new Date().toLocaleString();
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+</script>
 
 </body>
 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Settings</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:30px;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+h1{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#334155;
+    color:white;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.back{
+    display:inline-block;
+    margin-top:20px;
+    color:white;
+    text-decoration:none;
+    background:#475569;
+    padding:10px 20px;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚙ Settings</h1>
+
+<div class="card">
+
+<h2>👤 Account Settings</h2>
+
+<label>Username</label>
+<input type="text" value="Admin">
+
+<label>Email</label>
+<input type="email" value="admin@agentflow.com">
+
+</div>
+
+<div class="card">
+
+<h2>🔒 Change Password</h2>
+
+<label>New Password</label>
+<input type="password">
+
+<label>Confirm Password</label>
+<input type="password">
+
+</div>
+
+<div class="card">
+
+<h2>🔔 Notification Settings</h2>
+
+<select>
+<option>Enable Notifications</option>
+<option>Disable Notifications</option>
+</select>
+
+</div>
+
+<div class="card">
+
+<h2>🤖 Agent Settings</h2>
+
+<select>
+<option>All Agents Active</option>
+<option>Research Agent Only</option>
+<option>Coding Agent Only</option>
+<option>Testing Agent Only</option>
+</select>
+
+</div>
+
+<button>
+💾 Save Settings
+</button>
+
+<br>
+
+<a href="/dashboard" class="back">
+⬅ Back To Dashboard
+</a>
+
+</div>
+
+</body>
+</html>

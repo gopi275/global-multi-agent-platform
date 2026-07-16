@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AgentFlow AI - Activity Logs</title>
+
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+
+body{
+
+background:#020617;
+color:white;
+padding:30px;
+
+}
+
+
+.container{
+
+max-width:1000px;
+margin:auto;
+
+}
+
+
+.header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+
+}
+
+
+.back{
+
+color:#38bdf8;
+text-decoration:none;
+
+}
+
+
+
+.timeline{
+
+background:#1e293b;
+padding:25px;
+border-radius:20px;
+
+}
+
+
+
+.item{
+
+background:#0f172a;
+padding:20px;
+border-radius:15px;
+margin-bottom:15px;
+
+border-left:5px solid #38bdf8;
+
+}
+
+
+
+.item h3{
+
+color:#38bdf8;
+
+}
+
+
+
+.date{
+
+color:#94a3b8;
+font-size:14px;
+
+}
+
+
+
+.empty{
+
+text-align:center;
+color:#94a3b8;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="header">
+
+
+<h1>
+🕒 Activity Timeline
+</h1>
+
+
+<a class="back" href="/admin">
+⬅ Dashboard
+</a>
+
+
+</div>
+
+
+
+
+<div class="timeline">
+
+
+{% if logs %}
+
+
+{% for log in logs %}
+
+
+<div class="item">
+
+
+<h3>
+
+{% if "Deleted" in log.action %}
+
+🗑️
+
+{% elif "Created" in log.action %}
+
+➕
+
+{% elif "Completed" in log.action %}
+
+✅
+
+{% else %}
+
+⚙️
+
+{% endif %}
+
+
+{{log.action}}
+
+</h3>
+
+
+
+<p>
+
+User :
+{{log.user}}
+
+</p>
+
+
+
+<p class="date">
+
+{{log.date}}
+
+</p>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+
+<p class="empty">
+
+No Activity Found
+
+</p>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</body>
+
+</html>

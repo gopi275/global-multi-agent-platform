@@ -14,32 +14,42 @@ body{
     padding:30px;
 }
 
+
 .container{
     max-width:1200px;
     margin:auto;
 }
+
 
 h1{
     text-align:center;
     margin-bottom:30px;
 }
 
+
 form{
+
     background:#1e293b;
     padding:20px;
     border-radius:15px;
     margin-bottom:30px;
+
 }
 
+
 input,select{
+
     width:100%;
     padding:12px;
     margin:10px 0;
     border:none;
     border-radius:10px;
+
 }
 
+
 button{
+
     width:100%;
     padding:12px;
     background:#2563eb;
@@ -47,157 +57,254 @@ button{
     border:none;
     border-radius:10px;
     cursor:pointer;
+
 }
 
-button:hover{
-    background:#1d4ed8;
-}
 
 table{
+
     width:100%;
     border-collapse:collapse;
     background:white;
     color:black;
+
 }
+
 
 th{
+
     background:#2563eb;
     color:white;
+
 }
 
+
 th,td{
+
     padding:12px;
     border:1px solid #ddd;
     text-align:center;
+
 }
 
+
 .action-btn{
+
     padding:8px 12px;
     border-radius:8px;
     text-decoration:none;
     color:white;
     display:inline-block;
+    margin:3px;
+
 }
+
+
+.run{
+
+    background:#7c3aed;
+
+}
+
 
 .complete{
+
     background:green;
+
 }
 
+
 .delete{
+
     background:red;
+
 }
 
 </style>
 
+
 </head>
+
 
 <body>
 
+
 <div class="container">
+
 
 <h1>📋 Task Management</h1>
 
+
+
 <form method="POST" action="/create_task">
 
-    <input
-    type="text"
-    name="task_name"
-    placeholder="Task Name"
-    required>
 
-    <select name="agent_name">
+<input
+type="text"
+name="task_name"
+placeholder="Task Name"
+required>
 
-        <option>Manager Agent</option>
-        <option>Research Agent</option>
-        <option>Coding Agent</option>
-        <option>Testing Agent</option>
-        <option>Report Agent</option>
 
-    </select>
 
-    <select name="priority">
+<select name="agent_name">
 
-        <option>High</option>
-        <option>Medium</option>
-        <option>Low</option>
+<option>Manager Agent</option>
+<option>Research Agent</option>
+<option>Coding Agent</option>
+<option>Testing Agent</option>
+<option>Report Agent</option>
 
-    </select>
+</select>
 
-    <input
-    type="date"
-    name="due_date"
-    required>
 
-    <button type="submit">
-        Create Task
-    </button>
+
+<select name="priority">
+
+<option>High</option>
+<option>Medium</option>
+<option>Low</option>
+
+</select>
+
+
+
+<input
+type="date"
+name="due_date"
+required>
+
+
+
+<button type="submit">
+
+Create Task
+
+</button>
+
 
 </form>
 
-<h2>Saved Tasks</h2>
+
+
+
+<h2>📌 Saved Tasks</h2>
+
+
 
 <table>
 
+
 <tr>
-    <th>Task Name</th>
-    <th>Agent Name</th>
-    <th>Priority</th>
-    <th>Due Date</th>
-    <th>Status</th>
-    <th>Actions</th>
+
+<th>Task Name</th>
+
+<th>Agent</th>
+
+<th>Priority</th>
+
+<th>Due Date</th>
+
+<th>Status</th>
+
+<th>Actions</th>
+
 </tr>
+
+
+
 
 {% for task in tasks %}
 
+
 <tr>
 
-    <td>{{ task.task_name }}</td>
 
-    <td>{{ task.agent_name }}</td>
+<td>
+{{task.task_name}}
+</td>
 
-    <td>
 
-        {% if task.priority == "High" %}
-            🔴 High
 
-        {% elif task.priority == "Medium" %}
-            🟡 Medium
+<td>
+{{task.agent_name}}
+</td>
 
-        {% else %}
-            🟢 Low
 
-        {% endif %}
 
-    </td>
+<td>
 
-    <td>{{ task.due_date }}</td>
+{% if task.priority=="High" %}
 
-    <td>{{ task.status }}</td>
+🔴 High
 
-    <td>
+{% elif task.priority=="Medium" %}
 
-        <a
-        class="action-btn complete"
-        href="/complete_task/{{ task._id }}">
-        ✅ Complete
-        </a>
+🟡 Medium
 
-        <a
-        class="action-btn delete"
-        href="/delete_task/{{ task._id }}">
-        ❌ Delete
-        </a>
+{% else %}
 
-    </td>
+🟢 Low
+
+{% endif %}
+
+
+</td>
+
+
+
+<td>
+{{task.due_date}}
+</td>
+
+
+
+<td>
+{{task.status}}
+</td>
+
+
+
+<td>
+
+
+
+
+<a class="action-btn complete"
+href="/complete_task/{{task._id}}">
+
+✅ Complete
+
+</a>
+
+
+
+<a class="action-btn delete"
+href="/delete_task/{{task._id}}">
+
+❌ Delete
+
+</a>
+
+
+
+</td>
+
 
 </tr>
 
+
 {% endfor %}
+
+
 
 </table>
 
+
 </div>
 
+
 </body>
+
 
 </html>

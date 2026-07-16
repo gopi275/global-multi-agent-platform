@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Assistant History</title>
+
+<style>
+
+body{
+
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:40px;
+
+}
+
+
+.container{
+
+    max-width:900px;
+    margin:auto;
+
+}
+
+
+h1{
+
+    text-align:center;
+    color:#38bdf8;
+
+}
+
+
+.card{
+
+    background:#1e293b;
+    padding:20px;
+    margin:20px 0;
+    border-radius:12px;
+
+}
+
+
+.question{
+
+    color:#facc15;
+    font-size:18px;
+
+}
+
+
+.answer{
+
+    color:#4ade80;
+    font-size:18px;
+
+}
+
+
+.time{
+
+    color:#cbd5e1;
+    font-size:14px;
+
+}
+
+
+.back{
+
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 20px;
+    background:#38bdf8;
+    color:black;
+    text-decoration:none;
+    border-radius:8px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>🤖 AI Assistant Chat History</h1>
+
+
+
+{% if chats %}
+
+
+{% for chat in chats %}
+
+
+<div class="card">
+
+
+<p class="question">
+
+👤 Question:
+
+{{ chat.question }}
+
+</p>
+
+
+
+<p class="answer">
+
+🤖 Answer:
+
+{{ chat.answer }}
+
+</p>
+
+
+
+<p class="time">
+
+🕒 Time:
+
+{{ chat.time }}
+
+</p>
+
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+
+<h3>No Chat History Found</h3>
+
+
+{% endif %}
+
+
+
+<a class="back" href="/assistant">
+
+⬅ Back To Assistant
+
+</a>
+
+
+</div>
+
+
+</body>
+
+</html>

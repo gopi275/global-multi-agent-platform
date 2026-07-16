@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AgentFlow AI - Decision Logs</title>
+
+
+<style>
+
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+
+
+body{
+
+background:#020617;
+color:white;
+padding:30px;
+
+}
+
+
+
+.container{
+
+max-width:1100px;
+margin:auto;
+
+}
+
+
+
+h1{
+
+text-align:center;
+margin-bottom:35px;
+
+}
+
+
+
+.box{
+
+background:#1e293b;
+padding:30px;
+border-radius:25px;
+
+}
+
+
+
+.log{
+
+background:#0f172a;
+padding:25px;
+border-radius:18px;
+margin-bottom:20px;
+
+border-left:6px solid #38bdf8;
+
+}
+
+
+
+.log:hover{
+
+transform:translateX(8px);
+
+}
+
+
+
+.agent{
+
+font-size:22px;
+font-weight:bold;
+color:#38bdf8;
+
+}
+
+
+
+.decision{
+
+margin-top:15px;
+color:#cbd5e1;
+font-size:17px;
+
+}
+
+
+
+.time{
+
+margin-top:15px;
+color:#94a3b8;
+
+}
+
+
+
+.status{
+
+display:inline-block;
+
+margin-top:15px;
+
+padding:8px 18px;
+
+border-radius:20px;
+
+font-weight:bold;
+
+}
+
+
+
+.completed{
+
+background:#166534;
+color:#86efac;
+
+}
+
+
+
+.running{
+
+background:#1d4ed8;
+color:#bfdbfe;
+
+}
+
+
+
+.waiting{
+
+background:#854d0e;
+color:#fde047;
+
+}
+
+
+
+.buttons{
+
+margin-top:30px;
+text-align:center;
+
+}
+
+
+
+.btn{
+
+background:#2563eb;
+
+padding:12px 30px;
+
+border-radius:12px;
+
+color:white;
+
+text-decoration:none;
+
+margin:10px;
+
+}
+
+
+
+.btn:hover{
+
+background:#1d4ed8;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+
+<h1>
+
+🧠 AI Agent Decision Logs
+
+</h1>
+
+
+
+<div class="box">
+
+
+
+{% for log in logs %}
+
+
+
+<div class="log">
+
+
+
+<div class="agent">
+
+🤖 {{log.agent}}
+
+</div>
+
+
+
+<div class="decision">
+
+📝 Decision :
+
+{{log.decision}}
+
+</div>
+
+
+
+<div class="time">
+
+⏰ Time :
+
+{{log.time}}
+
+</div>
+
+
+
+
+
+{% if log.status == "Completed" %}
+
+
+<span class="status completed">
+
+🟢 {{log.status}}
+
+</span>
+
+
+
+{% elif log.status == "Running" %}
+
+
+
+<span class="status running">
+
+🔵 {{log.status}}
+
+</span>
+
+
+
+{% else %}
+
+
+
+<span class="status waiting">
+
+🟡 {{log.status}}
+
+</span>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+{% else %}
+
+
+<h3>
+
+No AI Decisions Available
+
+</h3>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+<div class="buttons">
+
+
+<a class="btn" href="/admin/add-ai-log">
+
+➕ Add Test AI Logs
+
+</a>
+
+
+
+<a class="btn" href="/admin">
+
+⬅ Dashboard
+
+</a>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</body>
+
+</html>

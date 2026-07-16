@@ -11,7 +11,6 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 from reportlab.pdfgen import canvas
-from flask_mail import Mail, Message
 
 from database import add_notification
 from database import workflows_collection
@@ -32,15 +31,6 @@ import matplotlib.pyplot as plt
 from routes.admin import admin
 
 app = Flask(__name__)
-
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 587
-app.config["MAIL_USE_TLS"] = True
-
-app.config["MAIL_USERNAME"] = "yourgmail@gmail.com"
-app.config["MAIL_PASSWORD"] = "YOUR_APP_PASSWORD"
-
-mail = Mail(app)
 
 app.secret_key = "AgentFlowAI@123"
 
@@ -749,9 +739,6 @@ def reports():
         reports=reports
     )
 
-
-
-#
 @app.route("/test-users")
 def test_users():
 
@@ -860,62 +847,6 @@ def run_workflow():
         workflow=workflow_data
     )
 
-@app.route("/workflow_analytics")
-def workflow_analytics():
-
-    total_workflows = workflows_collection.count_documents({})
-
-    completed = workflows_collection.count_documents({
-        "status":"Completed"
-    })
-
-    pending = workflows_collection.count_documents({
-        "status":"Pending"
-    })
-
-    failed = workflows_collection.count_documents({
-        "status":"Failed"
-    })
-
-    return render_template(
-        "workflow_analytics.html",
-        total_workflows=total_workflows,
-        completed=completed,
-        pending=pending,
-        failed=failed
-    )
-
-
-@app.route("/analytics_chart")
-def analytics_chart():
-
-    completed = workflows_collection.count_documents({
-        "status": "Completed"
-    })
-
-    pending = workflows_collection.count_documents({
-        "status": "Pending"
-    })
-
-    failed = workflows_collection.count_documents({
-        "status": "Failed"
-    })
-
-    return render_template(
-        "analytics_chart.html",
-        completed=completed,
-        pending=pending,
-        failed=failed
-    )
-
-def send_email():
-
-    try:
-        print("EMAIL SENT SUCCESS")
-
-    except Exception as e:
-        print("EMAIL ERROR =", e)
-
 # ==========================
 # Run Application
 # ==========================
@@ -929,4 +860,5 @@ if __name__=="__main__":
     port=5000,
     debug=True
 )
-    
+
+   

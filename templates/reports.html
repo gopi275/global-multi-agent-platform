@@ -1,20 +1,88 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Reports</title>
+
+<title>Reports</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.back{
+    display:inline-block;
+    padding:10px 20px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>📊 Reports Page</h1>
+<div class="container">
 
-<p>Reports Module Working Successfully</p>
+<a href="/dashboard" class="back">
+⬅ Dashboard
+</a>
 
-<a href="/dashboard">Back to Dashboard</a>
+<h1>📄 Reports</h1>
+
+{% if reports %}
+
+    {% for report in reports %}
+
+    <div class="card">
+
+        <h2>{{ report.title }}</h2>
+
+        <br>
+
+        <p>{{ report.description }}</p>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="card">
+
+        <h2>No Reports Available</h2>
+
+    </div>
+
+{% endif %}
+
+</div>
 
 </body>
-<a href="/download_report">
-    <button>
-        📄 Download PDF Report
-    </button>
-</a>
+
 </html>

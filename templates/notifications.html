@@ -5,41 +5,30 @@
 
 <title>Notifications</title>
 
-
 <style>
 
 body{
 
-background:#0f172a;
-color:white;
-font-family:Segoe UI;
-padding:30px;
+    background:#020617;
+    color:white;
+    font-family:Segoe UI, sans-serif;
+    padding:30px;
 
 }
 
 
 .container{
 
-max-width:900px;
-margin:auto;
+    max-width:900px;
+    margin:auto;
 
 }
 
 
 h1{
 
-text-align:center;
-
-}
-
-
-.back{
-
-background:#22c55e;
-padding:10px 20px;
-color:white;
-text-decoration:none;
-border-radius:8px;
+    text-align:center;
+    margin-bottom:40px;
 
 }
 
@@ -47,19 +36,11 @@ border-radius:8px;
 
 .notification{
 
-background:#1e293b;
-padding:20px;
-margin:20px 0;
-border-radius:12px;
-
-}
-
-
-
-.title{
-
-font-size:22px;
-color:#38bdf8;
+    background:#1e293b;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:15px;
+    border-left:5px solid #38bdf8;
 
 }
 
@@ -67,10 +48,45 @@ color:#38bdf8;
 
 .message{
 
-margin-top:10px;
+    font-size:18px;
+    font-weight:500;
 
 }
 
+
+
+.time{
+
+    margin-top:10px;
+    color:#94a3b8;
+    font-size:14px;
+
+}
+
+
+
+.back{
+
+    display:inline-block;
+    margin-top:30px;
+    padding:12px 20px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+
+}
+
+
+
+.empty{
+
+    text-align:center;
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+
+}
 
 
 </style>
@@ -85,44 +101,67 @@ margin-top:10px;
 <div class="container">
 
 
-<a class="back" href="/admin/">
-
-⬅ Dashboard
-
-</a>
-
-
 <h1>
-🔔 Admin Notifications
+🔔 Notifications
 </h1>
 
 
 
-{% for item in notifications %}
+{% if notifications %}
+
+
+{% for note in notifications %}
 
 
 <div class="notification">
 
 
-<div class="title">
-
-{{item.title}}
-
-</div>
-
-
 <div class="message">
 
-{{item.message}}
+🔔 {{note.message}}
+
+</div>
+
+
+<div class="time">
+
+🕒 {{note.time}}
 
 </div>
 
 
 </div>
-
 
 
 {% endfor %}
+
+
+
+{% else %}
+
+
+<div class="empty">
+
+<h3>
+No Notifications Found
+</h3>
+
+<p>
+Create tasks or complete workflow to generate notifications.
+</p>
+
+</div>
+
+
+{% endif %}
+
+
+
+<a class="back" href="/dashboard">
+
+⬅ Back Dashboard
+
+</a>
 
 
 

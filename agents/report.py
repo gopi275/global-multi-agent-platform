@@ -1,13 +1,9 @@
-def run_report():
+def report_agent(test_data):
 
-    result = """
-Report Agent Started...
+    print("📄 Report Agent Running...")
 
-Project Report Generated
-Documentation Completed
-PDF Report Ready
+    result = f"Final report generated: {test_data}"
 
-Status : SUCCESS
-"""
+    print("✅ Report Agent Completed")
 
     return result

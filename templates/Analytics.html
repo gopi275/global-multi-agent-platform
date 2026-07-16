@@ -1,35 +1,589 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Analytics</title>
+
+<title>AgentFlow AI - Analytics</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <style>
-body{
-    background:#0f172a;
-    color:white;
-    font-family:Segoe UI;
-    text-align:center;
-    padding:30px;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
 }
+
+
+body{
+
+    background:#020617;
+    color:white;
+    padding:30px;
+
+}
+
+
+.container{
+
+    max-width:1200px;
+    margin:auto;
+
+}
+
+
+h1{
+
+    text-align:center;
+    margin-bottom:35px;
+
+}
+
+
+
+/* Cards */
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+
+}
+
+
 
 .card{
+
     background:#1e293b;
-    padding:20px;
-    border-radius:15px;
-    width:80%;
-    margin:auto;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 25px #0005;
+
 }
+
+
+
+.card h3{
+
+    color:#94a3b8;
+
+}
+
+
+
+.card h2{
+
+    margin-top:15px;
+    font-size:35px;
+    color:#38bdf8;
+
+}
+
+
+
+/* Section */
+
+
+.section{
+
+    margin-top:40px;
+    background:#1e293b;
+    padding:30px;
+    border-radius:20px;
+
+}
+
+
+
+
+/* Progress */
+
+
+.bar{
+
+    background:#334155;
+    height:25px;
+    border-radius:20px;
+    margin:15px 0;
+
+}
+
+
+
+.progress{
+
+    height:100%;
+    border-radius:20px;
+    background:#22c55e;
+
+}
+
+
+.blue{
+
+    background:#38bdf8;
+
+}
+
+
+.orange{
+
+    background:#f59e0b;
+
+}
+
+
+
+/* Charts */
+
+
+.chart-box{
+
+    width:100%;
+    max-width:500px;
+    margin:30px auto;
+
+}
+
+
+
+/* Button */
+
+
+.back{
+
+    display:inline-block;
+    margin-top:30px;
+    background:#2563eb;
+    padding:12px 25px;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+
+}
+
+
 </style>
 
+
 </head>
+
+
+
 <body>
 
-<h1>📈 Analytics Dashboard</h1>
+
+<div class="container">
+
+
+
+<h1>
+📊 AgentFlow AI Analytics Dashboard
+</h1>
+
+
+
+
+<!-- Statistics Cards -->
+
+
+<div class="cards">
+
+
 
 <div class="card">
-    <h2>Workflow Performance Analytics</h2>
-   <img src="/chart" width="350">
+
+<h3>
+👥 Total Users
+</h3>
+
+<h2>
+{{data.users}}
+</h2>
+
 </div>
 
+
+
+
+<div class="card">
+
+<h3>
+🟢 Online Users
+</h3>
+
+<h2>
+{{data.online}}
+</h2>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+🔴 Offline Users
+</h3>
+
+<h2>
+{{data.offline}}
+</h2>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+📋 Total Tasks
+</h3>
+
+<h2>
+{{data.tasks}}
+</h2>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h3>
+📂 Reports
+</h3>
+
+<h2>
+{{data.reports}}
+</h2>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- User Analysis -->
+
+
+<div class="section">
+
+
+<h2>
+👥 User Analysis
+</h2>
+
+
+<br>
+
+
+<p>
+Online Users
+</p>
+
+
+<div class="bar">
+
+<div class="progress"
+style="width:{{(data.online/data.users*100) if data.users else 0}}%">
+</div>
+
+</div>
+
+
+
+<p>
+Offline Users
+</p>
+
+
+<div class="bar">
+
+<div class="progress orange"
+style="width:{{(data.offline/data.users*100) if data.users else 0}}%">
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Task Analysis -->
+
+
+<div class="section">
+
+
+<h2>
+📋 Task Performance
+</h2>
+
+
+<br>
+
+
+<p>
+Completed Tasks
+</p>
+
+
+<div class="bar">
+
+<div class="progress"
+style="width:{{(data.completed/data.tasks*100) if data.tasks else 0}}%">
+</div>
+
+</div>
+
+
+
+
+<p>
+Pending Tasks
+</p>
+
+
+<div class="bar">
+
+<div class="progress blue"
+style="width:{{(data.pending/data.tasks*100) if data.tasks else 0}}%">
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Charts -->
+
+
+<div class="section">
+
+
+<h2>
+📊 System Analytics Charts
+</h2>
+
+
+<div class="chart-box">
+
+<canvas id="userChart"></canvas>
+
+</div>
+
+
+<div class="chart-box">
+
+<canvas id="taskChart"></canvas>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- AI Insights -->
+
+
+<div class="section">
+
+
+<h2>
+🤖 AI System Insights
+</h2>
+
+
+<br>
+
+
+<p>
+🚀 Workflow Automation : Active
+</p>
+
+
+<br>
+
+
+<p>
+🤖 Agents Monitoring : Running
+</p>
+
+
+<br>
+
+
+<p>
+📈 Performance Tracking : Enabled
+</p>
+
+
+
+</div>
+
+
+
+
+
+<a class="back" href="/admin">
+
+⬅ Back To Dashboard
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+// User Chart
+
+
+new Chart(
+
+document.getElementById("userChart"),
+
+{
+
+
+type:"pie",
+
+
+data:{
+
+
+labels:[
+
+"Online Users",
+
+"Offline Users"
+
+],
+
+
+datasets:[{
+
+data:[
+
+{{data.online}},
+
+{{data.offline}}
+
+]
+
+}]
+
+}
+
+
+}
+
+);
+
+
+
+
+
+
+
+// Task Chart
+
+
+new Chart(
+
+document.getElementById("taskChart"),
+
+{
+
+
+type:"bar",
+
+
+data:{
+
+
+labels:[
+
+"Completed",
+
+"Pending"
+
+],
+
+
+datasets:[{
+
+label:"Tasks",
+
+data:[
+
+{{data.completed}},
+
+{{data.pending}}
+
+]
+
+}]
+
+}
+
+
+}
+
+);
+
+
+
+</script>
+
+
+
 </body>
+
 </html>

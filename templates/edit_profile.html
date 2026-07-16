@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Profile</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:40px;
+}
+
+.card{
+    max-width:600px;
+    margin:auto;
+    background:#1e293b;
+    padding:30px;
+    border-radius:20px;
+}
+
+input{
+
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:20px;
+
+    border:none;
+    border-radius:8px;
+}
+
+button{
+
+    background:#2563eb;
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>✏ Edit Profile</h1>
+
+<form method="POST">
+
+<label>Username</label>
+
+<input
+type="text"
+name="username"
+value="{{ user.username }}"
+required>
+
+<label>Email</label>
+
+<input
+type="email"
+name="email"
+value="{{ user.email }}"
+required>
+
+<button type="submit">
+
+💾 Save Changes
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

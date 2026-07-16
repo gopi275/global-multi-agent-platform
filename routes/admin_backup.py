@@ -7,9 +7,6 @@ from flask import (
     session,
     send_file
 )
-from database import ai_logs_collection
-from database import ai_reports_collection
-from workflow.engine import run_live_workflow
 
 from functools import wraps
 from bson.objectid import ObjectId
@@ -31,8 +28,7 @@ from database import (
     reports_collection,
     workflows_collection,
     workflow_history_collection,
-    activity_collection,
-    notifications_collection
+    activity_collection
 )
 
 
@@ -162,12 +158,20 @@ def admin_dashboard():
 @admin_required
 def manage_users():
 
-    users = list(users_collection.find())
+
+    users = users_collection.find()
+
 
     return render_template(
+
         "users.html",
+
         users=users
+
     )
+
+
+
 
 
 # ==========================
@@ -241,62 +245,43 @@ def workflow_monitor():
 
 
 
-
-    # ==========================
-# Analytics Dashboard
+# ==========================
+# Analytics
 # ==========================
 
 @admin.route("/analytics")
 @admin_required
-def analytics():
+def admin_analytics():
 
     total_users = users_collection.count_documents({})
 
-
-    online_users = users_collection.count_documents({
-        "status":"Online"
-    })
-
-
-    offline_users = users_collection.count_documents({
-        "status":"Offline"
-    })
-
-
     total_tasks = tasks_collection.count_documents({})
 
+    completed_tasks = tasks_collection.count_documents(
+        {"status":"Completed"}
+    )
 
-    completed_tasks = tasks_collection.count_documents({
-        "status":"Completed"
-    })
-
-
-    pending_tasks = tasks_collection.count_documents({
-        "status":"Pending"
-    })
-
+    pending_tasks = tasks_collection.count_documents(
+        {"status":"Pending"}
+    )
 
     total_reports = reports_collection.count_documents({})
 
-
     total_workflows = workflows_collection.count_documents({})
+
+
+    if total_tasks > 0:
+        completion_rate = int(
+            (completed_tasks / total_tasks) * 100
+        )
+    else:
+        completion_rate = 0
 
 
 
     data = {
 
-
-        # Users
-
         "users": total_users,
-
-        "online": online_users,
-
-        "offline": offline_users,
-
-
-
-        # Tasks
 
         "tasks": total_tasks,
 
@@ -304,36 +289,23 @@ def analytics():
 
         "pending": pending_tasks,
 
-
-
-        # Reports
-
         "reports": total_reports,
 
+        "workflows": total_workflows,
 
+        "rate": completion_rate,
 
-        # Workflow
-
-        "workflows": total_workflows
+        "agents": 4
 
     }
 
 
-
-    print(
-        "ANALYTICS DATA ==========>",
-        data
-    )
-
-
-
     return render_template(
-
-        "analytics.html",
-
+        "admin_analytics.html",
         data=data
-
     )
+
+
 
 
 # ==========================
@@ -447,18 +419,26 @@ def agent_leaderboard():
 # Workflow History
 # ==========================
 
-from database import get_workflow_history
-
+from database import workflow_history_collection
 
 @admin.route("/workflow-history")
 def workflow_history():
 
-    history = get_workflow_history()
+    history = list(
+        workflow_history_collection.find()
+    )
+
+    print("WORKFLOW DATA ==========>")
+    for item in history:
+        print(item)
 
     return render_template(
         "workflow_history.html",
         history=history
     )
+
+
+
 
 
 # ==========================
@@ -633,17 +613,19 @@ def system_health():
 @admin_required
 def admin_activity():
 
-    logs = list(
-        activity_collection.find().sort(
-            "_id",
-            -1
-        )
+
+    logs = activity_collection.find().sort(
+        "_id",
+        -1
     )
 
 
     return render_template(
+
         "admin_activity.html",
+
         logs=logs
+
     )
 
 
@@ -682,59 +664,22 @@ def agent_monitor():
 
 from datetime import datetime
 
-# ==========================
-# Workflow Center
-# ==========================
-
 @admin.route("/workflow-center")
 @admin_required
 def workflow_center():
 
-    workflow = {
-
-        "name":"AI Automation Workflow",
-
-        "steps":[
-
-            {
-                "agent":"Research Agent",
-                "status":"Waiting"
-            },
-
-            {
-                "agent":"Coding Agent",
-                "status":"Waiting"
-            },
-
-            {
-                "agent":"Testing Agent",
-                "status":"Waiting"
-            },
-
-            {
-                "agent":"Report Agent",
-                "status":"Waiting"
-            }
-
-        ]
-
-    }
-
-
     return render_template(
-        "workflow_center.html",
-        workflow=workflow
+        "workflow_center.html"
     )
-
 
 
 @admin.route("/run-full-workflow")
 @admin_required
 def run_full_workflow():
 
-    workflow_data = {
+    workflows_collection.insert_one({
 
-        "workflow_name": "AI Multi Agent Workflow",
+        "agent": "Multi Agent Workflow",
 
         "task": "Complete Automation",
 
@@ -743,21 +688,30 @@ def run_full_workflow():
         "date": datetime.now().strftime(
             "%d-%m-%Y %H:%M:%S"
         )
-    }
 
-    workflows_collection.insert_one(
-        workflow_data
+    })
+
+    activity_collection.insert_one({
+
+        "action": "Full Workflow Executed",
+
+        "user": "Admin",
+
+        "date": datetime.now().strftime(
+            "%d-%m-%Y %H:%M:%S"
+        )
+
+    })
+
+    notifications_collection.insert_one({
+
+        "message": "Workflow Completed Successfully"
+
+    })
+
+    return redirect(
+        url_for("admin.workflow_monitor")
     )
-
-    return render_template(
-        "workflow_result.html",
-        workflow=workflow_data
-    )
-
-
-# ==========================
-# Agent Performance
-# ==========================
 
 @admin.route("/agent-performance")
 @admin_required
@@ -787,26 +741,22 @@ def agent_performance():
 
     ]
 
-
     best_agent = max(
         agents,
-        key=lambda x:x["score"]
+        key=lambda x: x["score"]
     )
 
-
-    average = round(
-        sum(a["score"] for a in agents)
-        /
+    avg_score = round(
+        sum(a["score"] for a in agents) /
         len(agents),
         2
     )
-
 
     return render_template(
         "agent_performance.html",
         agents=agents,
         best_agent=best_agent,
-        average=average
+        avg_score=avg_score
     )
 
 @admin.route("/search", methods=["GET","POST"])
@@ -868,351 +818,3 @@ def all_users():
         print(user)
 
     return "Check Terminal"
-
-# ==========================
-# Admin Profile
-# ==========================
-
-@admin.route("/profile")
-@admin_required
-def admin_profile():
-
-    print("ADMIN SESSION =", session)
-
-    admin_data = {
-        "username": session.get("admin"),
-        "role": "Administrator",
-        "email": "admin@gmail.com"
-    }
-
-    return render_template(
-        "admin_profile.html",
-        admin=admin_data
-    )
-
-
-
-
-# ==========================
-# Add Test Activity
-# ==========================
-
-@admin.route("/add-test-activity")
-@admin_required
-def add_test_activity():
-
-    current_time = datetime.now().strftime(
-        "%d-%m-%Y %H:%M:%S"
-    )
-
-
-    activity_collection.insert_one({
-
-        "action":"Created New Task",
-        "user":"Admin",
-        "date":current_time
-
-    })
-
-
-    activity_collection.insert_one({
-
-        "action":"Workflow Completed",
-        "user":"Admin",
-        "date":current_time
-
-    })
-
-
-    activity_collection.insert_one({
-
-        "action":"Generated Report",
-        "user":"Admin",
-        "date":current_time
-
-    })
-
-
-    return redirect(
-        url_for("admin.admin_activity")
-    )
-
-
-
-import time
-
-# ==========================
-# Live Workflow Execution
-# ==========================
-
-from workflow.live import get_status
-
-
-@admin.route("/workflow-live")
-@admin_required
-def workflow_live():
-
-    status = {
-        "Research Agent": "Waiting",
-        "Coding Agent": "Waiting",
-        "Testing Agent": "Waiting",
-        "Report Agent": "Waiting"
-    }
-
-    return render_template(
-        "workflow_live.html",
-        status=status
-    )
-
-
-    # ==========================
-# AI Decision Logs
-# ==========================
-
-@admin.route("/ai-logs")
-@admin_required
-def ai_logs():
-
-
-    logs = list(
-        ai_logs_collection.find()
-        .sort("_id",-1)
-    )
-
-
-    return render_template(
-        "ai_logs.html",
-        logs=logs
-    )
-
-
-
-
-
-# Add Test AI Logs
-
-@admin.route("/add-ai-log")
-@admin_required
-def add_ai_log():
-
-
-    current_time = datetime.now().strftime(
-        "%d-%m-%Y %H:%M:%S"
-    )
-
-
-    ai_logs_collection.insert_many([
-
-
-        {
-            "agent":
-            "Research Agent",
-
-            "decision":
-            "Collected required information",
-
-            "status":
-            "Completed",
-
-            "time":
-            current_time
-        },
-
-
-        {
-            "agent":
-            "Coding Agent",
-
-            "decision":
-            "Generated automation code",
-
-            "status":
-            "Completed",
-
-            "time":
-            current_time
-        },
-
-
-        {
-            "agent":
-            "Testing Agent",
-
-            "decision":
-            "Executed testing process",
-
-            "status":
-            "Running",
-
-            "time":
-            current_time
-        },
-
-
-        {
-            "agent":
-            "Report Agent",
-
-            "decision":
-            "Prepared final report",
-
-            "status":
-            "Waiting",
-
-            "time":
-            current_time
-        }
-
-
-    ])
-
-
-    return redirect(
-        url_for("admin.ai_logs")
-    )
-
-# ==========================
-# AI System Reports
-# ==========================
-
-@admin.route("/ai-reports")
-@admin_required
-def ai_reports():
-
-
-    data = {
-
-
-        "users":
-        users_collection.count_documents({}),
-
-
-        "tasks":
-        tasks_collection.count_documents({}),
-
-
-        "workflows":
-        workflows_collection.count_documents({}),
-
-
-        "ai_logs":
-        ai_logs_collection.count_documents({})
-
-
-    }
-
-
-    return render_template(
-
-        "ai_reports.html",
-
-        data=data
-
-    )
-
-
-
-
-
-# ==========================
-# Generate AI Report
-# ==========================
-
-@admin.route("/generate-ai-report")
-@admin_required
-def generate_ai_report():
-
-
-    report = {
-
-
-        "title":
-        "AI Workflow Automation Report",
-
-
-        "date":
-        datetime.now().strftime(
-            "%d-%m-%Y %H:%M:%S"
-        ),
-
-
-        "total_users":
-        users_collection.count_documents({}),
-
-
-        "total_tasks":
-        tasks_collection.count_documents({}),
-
-
-        "total_workflows":
-        workflows_collection.count_documents({}),
-
-
-        "ai_decisions":
-        ai_logs_collection.count_documents({})
-
-
-    }
-
-
-
-    ai_reports_collection.insert_one(
-        report
-    )
-
-
-
-    return redirect(
-        url_for("admin.ai_reports")
-    )
-
-from flask import jsonify
-from workflow.live import get_status
-
-
-@admin.route("/workflow-status")
-@admin_required
-def workflow_status():
-
-    return jsonify(
-        get_status()
-    )
-
-# ==========================
-# AI Assistant
-# ==========================
-
-@admin.route("/ai-assistant", methods=["GET","POST"])
-@admin_required
-def ai_assistant():
-
-    answer = ""
-
-    if request.method == "POST":
-
-        question = request.form["question"].lower()
-
-        if "users" in question:
-
-            answer = f"Total Users : {users_collection.count_documents({})}"
-
-        elif "tasks" in question:
-
-            answer = f"Total Tasks : {tasks_collection.count_documents({})}"
-
-        elif "reports" in question:
-
-            answer = f"Total Reports : {reports_collection.count_documents({})}"
-
-        elif "workflows" in question:
-
-            answer = f"Total Workflows : {workflows_collection.count_documents({})}"
-
-        else:
-
-            answer = "Sorry, I don't understand."
-
-    return render_template(
-        "ai_assistant.html",
-        answer=answer
-    )

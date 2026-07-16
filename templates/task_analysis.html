@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Task Analysis</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:40px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+.step{
+    background:#1e293b;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:10px;
+    font-size:20px;
+}
+
+.running{
+    color:orange;
+}
+
+.completed{
+    color:#22c55e;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 AI Agents Analyzing Task</h1>
+
+<h3>Task : {{ task_name }}</h3>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+const steps = [
+
+"🔍 Research Agent Analyzing Task...",
+"💻 Coding Agent Planning Solution...",
+"🧪 Testing Agent Checking Workflow...",
+"📄 Report Agent Generating Summary..."
+
+];
+
+let i = 0;
+
+function runStep(){
+
+    if(i >= steps.length){
+
+        document.getElementById("output").innerHTML +=
+        `<div class="step completed">
+        🎉 Task Analysis Completed
+        <br><br>
+        <a href="/tasks">View Tasks</a>
+        </div>`;
+
+        return;
+    }
+
+    let div = document.createElement("div");
+
+    div.className = "step running";
+
+    div.innerHTML = "⏳ " + steps[i];
+
+    document.getElementById("output").appendChild(div);
+
+    setTimeout(() => {
+
+        div.className = "step completed";
+
+        div.innerHTML = "✅ " + steps[i];
+
+        i++;
+
+        runStep();
+
+    }, 1500);
+
+}
+
+runStep();
+
+</script>
+
+</body>
+</html>

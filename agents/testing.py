@@ -1,13 +1,9 @@
-def run_testing():
+def testing_agent(code_data):
 
-    result = """
-Testing Agent Started...
+    print("🧪 Testing Agent Running...")
 
-Unit Testing Completed
-Bug Scan Completed
-Performance Testing Completed
+    result = f"Testing completed for: {code_data}"
 
-Status : SUCCESS
-"""
+    print("✅ Testing Agent Completed")
 
     return result

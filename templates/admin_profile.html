@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Profile</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+}
+
+.card{
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    margin-top:30px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.info{
+    margin:15px 0;
+    font-size:18px;
+}
+
+.back{
+    display:inline-block;
+    margin-bottom:20px;
+    padding:10px 20px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="/admin/" class="back">
+⬅ Dashboard
+</a>
+
+<div class="card">
+
+<h1 style="color:red;">
+🚨 ADMIN PROFILE PAGE 🚨
+</h1>
+
+<div class="info">
+<b>Username:</b> {{ admin.username }}
+</div>
+
+<div class="info">
+<b>Email:</b> {{ admin.email }}
+</div>
+
+<div class="info">
+<b>Role:</b> {{ admin.role }}
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

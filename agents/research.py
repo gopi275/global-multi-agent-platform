@@ -1,13 +1,9 @@
-def run_research():
+def research_agent(task):
 
-    result = """
-Research Agent Started...
+    print("🔎 Research Agent Running...")
 
-Topic Analysis Completed
-Data Collection Completed
-Research Summary Generated
+    result = f"Research completed for task: {task}"
 
-Status : SUCCESS
-"""
+    print("✅ Research Agent Completed")
 
     return result

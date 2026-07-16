@@ -1,13 +1,9 @@
-def run_coding():
+def coding_agent(research_data):
 
-    result = """
-Coding Agent Started...
+    print("💻 Coding Agent Running...")
 
-Backend Code Generated
-Frontend Code Generated
-API Development Completed
+    result = f"Coding completed based on: {research_data}"
 
-Status : SUCCESS
-"""
+    print("✅ Coding Agent Completed")
 
     return result

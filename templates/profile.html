@@ -1,19 +1,269 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Profile</title>
+
+<title>User Profile</title>
+
+<style>
+
+body{
+background:#0f172a;
+color:white;
+font-family:Segoe UI;
+padding:30px;
+}
+
+
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+
+.card{
+
+background:#1e293b;
+padding:25px;
+border-radius:15px;
+margin-bottom:20px;
+
+}
+
+
+.profile-title{
+
+text-align:center;
+color:#38bdf8;
+
+}
+
+
+.stats{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+
+}
+
+
+.box{
+
+background:#334155;
+padding:20px;
+border-radius:10px;
+text-align:center;
+
+}
+
+
+.box h3{
+
+font-size:30px;
+color:#38bdf8;
+
+}
+
+
+.actions a{
+
+display:inline-block;
+margin:10px;
+padding:12px 20px;
+background:#2563eb;
+color:white;
+text-decoration:none;
+border-radius:8px;
+
+}
+
+
+.actions a:hover{
+
+background:#38bdf8;
+color:black;
+
+}
+
+
+.info{
+
+background:#334155;
+padding:15px;
+border-radius:10px;
+margin-top:10px;
+
+}
+
+</style>
+
 </head>
-<body style="background:#0f172a;color:white;font-family:Segoe UI;text-align:center">
 
-<h1>👤 User Profile</h1>
 
-<h2>Gopinath</h2>
+<body>
 
-<p>Role: Administrator</p>
 
-<p>Department: Computer Science</p>
+<div class="container">
 
-<a href="/dashboard">Back Dashboard</a>
+
+
+<div class="card">
+
+
+<h1 class="profile-title">
+👤 My Profile
+</h1>
+
+
+<div class="info">
+
+<h3>
+👤 Username :
+{{ user.username }}
+</h3>
+
+
+<h3>
+📧 Email :
+{{ user.email }}
+</h3>
+
+
+<h3>
+🔐 Role :
+{{ user.role }}
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h2>
+📊 User Statistics
+</h2>
+
+
+<br>
+
+
+<div class="stats">
+
+
+
+<div class="box">
+
+<h3>
+{{ total_tasks }}
+</h3>
+
+<p>
+📋 Total Tasks
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+{{ completed_tasks }}
+</h3>
+
+<p>
+✅ Completed
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+{{ pending_tasks }}
+</h3>
+
+<p>
+⏳ Pending
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+{{ total_reports }}
+</h3>
+
+<p>
+📄 Reports
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="card actions">
+
+
+<h2>
+⚙ Quick Actions
+</h2>
+
+
+
+<a href="/my_tasks">
+📋 My Tasks
+</a>
+
+
+
+<a href="/reports">
+📄 My Reports
+</a>
+
+
+
+<a href="/settings">
+⚙ Settings
+</a>
+
+
+
+<a href="/logout">
+🚪 Logout
+</a>
+
+
+
+</div>
+
+
+
+</div>
+
 
 </body>
+
+
 </html>

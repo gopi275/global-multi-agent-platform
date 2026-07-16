@@ -13,7 +13,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
@@ -23,10 +23,11 @@ body{
 
 .navbar{
     background:#111827;
-    padding:20px;
+    padding:20px 40px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    border-bottom:1px solid #334155;
 }
 
 .navbar h2{
@@ -34,26 +35,37 @@ body{
 }
 
 .navbar a{
-    color:white;
+    color:#cbd5e1;
     text-decoration:none;
     margin-left:20px;
     font-weight:bold;
 }
 
+.navbar a:hover{
+    color:#38bdf8;
+}
+
 .container{
+    max-width:1400px;
+    margin:auto;
     padding:30px;
 }
 
 .welcome{
-    background:#1e293b;
-    padding:25px;
-    border-radius:15px;
+    background:linear-gradient(135deg,#1e293b,#334155);
+    padding:35px;
+    border-radius:20px;
     margin-bottom:30px;
+}
+
+.welcome h1{
+    color:#38bdf8;
+    margin-bottom:10px;
 }
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
     margin-bottom:30px;
 }
@@ -72,7 +84,7 @@ body{
 
 .card h3{
     color:#38bdf8;
-    margin-bottom:15px;
+    margin-bottom:10px;
 }
 
 .card h1{
@@ -83,16 +95,16 @@ body{
     display:flex;
     flex-wrap:wrap;
     gap:15px;
-    margin-bottom:30px;
+    margin-bottom:35px;
 }
+
 
 .btn{
     text-decoration:none;
     color:white;
-    padding:15px 25px;
+    padding:14px 24px;
     border-radius:10px;
     font-weight:bold;
-    display:inline-block;
 }
 
 .blue{
@@ -113,11 +125,6 @@ body{
 
 .red{
     background:#dc2626;
-}
-
-.btn:hover{
-    opacity:.9;
-    transform:translateY(-2px);
 }
 
 .workflow{
@@ -145,7 +152,7 @@ body{
 }
 
 .chart-box img{
-    width:350px;
+    width:400px;
     max-width:100%;
     border-radius:10px;
 }
@@ -156,176 +163,209 @@ body{
     color:#94a3b8;
 }
 
-</style>
+.workflow{
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
 
+.chart-box{
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    opacity:.9;
+}
+
+.card{
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100%;
+    background:#111827;
+    padding:25px;
+}
+
+.sidebar h2{
+    color:#38bdf8;
+    margin-bottom:30px;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    margin:15px 0;
+    padding:10px;
+    border-radius:8px;
+}
+
+.sidebar a:hover{
+    background:#1e293b;
+}
+
+.main-content{
+    margin-left:270px;
+    padding:30px;
+}
+
+.hero{
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    margin-bottom:25px;
+}
+
+.status-box{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+    margin-top:5px;
+    margin-bottom:30px;
+}
+
+.actions{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.status-box p{
+    margin-top:12px;
+    font-size:18px;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="navbar">
-
-    <h2>🤖 AgentFlow Dashboard</h2>
-
-    <div>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/agents">Agents</a>
-        <a href="/tasks">Tasks</a>
-        <a href="/reports">Reports</a>
-        <a href="/notifications">Notifications</a>
-        <a href="/profile">Profile</a>
-    </div>
 
 </div>
 
-<div class="container">
+<div class="sidebar">
 
-    <div class="welcome">
+<h2>🤖 AgentFlow</h2>
 
-        <h1>🚀 Welcome to AgentFlow AI</h1>
+<a href="/dashboard">🏠 Dashboard</a>
 
-        <br>
+<a href="/tasks">📋 Tasks</a>
 
-        <p>
-            Global Multi-Agent Workflow Automation Platform
-        </p>
+<a href="/workflow">⚡ Workflow</a>
 
-    </div>
+<a href="/workflow_history">📜 History</a>
 
-    <div class="cards">
+<a href="/reports">📄 Reports</a>
 
-        <div class="card">
-            <h3>Total Users</h3>
-            <h1>{{ total_users }}</h1>
-        </div>
+<a href="/notifications">🔔 Notifications</a>
 
-        <div class="card">
-            <h3>Total Tasks</h3>
-            <h1>{{ total_tasks }}</h1>
-        </div>
+<a href="/agent_monitor">🤖 Agents</a>
 
-        <div class="card">
-            <h3>Completed Tasks</h3>
-            <h1>{{ completed_tasks }}</h1>
-        </div>
+<a href="/assistant">💬 Assistant</a>
 
-        <div class="card">
-            <h3>Reports</h3>
-            <h1>{{ total_reports }}</h1>
-        </div>
+<a href="/profile">👤 Profile</a>
 
-<h3>⚠ Overdue Tasks</h3>
+</div>
+<div class="main-content">
 
-<h1>{{ overdue_tasks }}</h1>
+<div class="hero">
+
+<h1>🚀 AgentFlow AI Command Center</h1>
+
+<p>
+Multi-Agent Workflow Automation Platform
+</p>
+
+</div>
+
+<div class="cards">
 
 <div class="card">
-            
-        </div>
+<h3>📋 Total Tasks</h3>
+<h1>{{ total_tasks }}</h1>
+</div>
+
+<div class="card">
+<h3>✅ Completed</h3>
+<h1>{{ completed_tasks }}</h1>
+</div>
+
+<div class="card">
+<h3>⏳ Pending</h3>
+<h1>{{ pending_tasks }}</h1>
+</div>
+
+<div class="card">
+<h3>📄 Reports</h3>
+<h1>{{ total_reports }}</h1>
+</div>
+
+<div class="card">
+
+<h2>{{total_workflows}}</h2>
+
+<p>🚀 Workflows</p>
 
 </div>
 
-    </div>
 
-    <div class="actions">
+<div class="card">
 
-        <a href="/agents" class="btn blue">
-            🤖 Manage Agents
-        </a>
+<h2>{{total_chats}}</h2>
 
-        <a href="/tasks" class="btn green">
-            📋 Manage Tasks
-        </a>
-
-        <a href="/reports" class="btn orange">
-            📄 Reports
-        </a>
-
-        <a href="/notifications" class="btn purple">
-            🔔 Notifications
-        </a>
-
-        <a href="/profile" class="btn red">
-            👤 Profile
-        </a>
-        <a href="/admin/download-report">
-
-       <button>
-
-        📄 Download PDF Report
-
-         </button>
-
-        </a>
-
-    </div>
-
-    <div class="workflow">
-
-        <h2>⚡ Workflow Automation</h2>
-
-        <p>
-            Execute all AI Agents automatically.
-        </p>
-
-        <br>
-
-        <div class="actions">
-
-            <a href="/run_workflow" class="btn green">
-                🚀 Run Complete Workflow
-            </a>
-
-            <a href="/workflow" class="btn orange">
-                ⚡ Workflow Execution
-            </a>
-
-            <a href="/workflow_history" class="btn blue">
-                📜 Workflow History
-            </a>
-
-            <a href="/assistant" class="btn purple">
-                🤖 AI Assistant
-            </a>
-
-            <a href="/activity_logs" class="btn red">
-                📝 Activity Logs
-            </a>
-
-            <a href="/agent_monitor" class="btn green">
-                🤖 Agent Monitor
-            </a>
-
-            <a href="/admin_analytics" class="btn blue">
-                📊 Admin Analytics
-            </a>
-
-            <a href="/leaderboard" class="btn orange">
-                🏆 Leaderboard
-            </a>
-
-            <a href="/send_email" class="btn green">
-                📧 Send Email
-            </a>
-            <a href="/notifications" class="btn purple">
-                🔔 Notifications
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="chart-box">
-
-        <h2>📊 Task Analytics</h2>
-
-        <img src="/chart">
-
-    </div>
-
-    <div class="footer">
-        AgentFlow AI © 2026
-    </div>
+<p>🤖 AI Chats</p>
 
 </div>
 
-</body>
-</html>
+
+<div class="card">
+
+<h2>{{total_agents}}</h2>
+
+<p>⚙ Agent Activity</p>
+
+</div>
+
+</div>
+
+<br><br>
+
+<div class="status-box">
+
+<h2>🤖 Agent Status</h2>
+
+<p>🟢 Research Agent - Online</p>
+
+<p>🟢 Coding Agent - Online</p>
+
+<p>🟢 Testing Agent - Online</p>
+
+<p>🟢 Report Agent - Online</p>
+
+</div>
+
+<div class="actions">
+
+<a href="/run_workflow" class="btn green">
+🚀 Run Workflow
+</a>
+
+<a href="/tasks" class="btn blue">
+📋 Tasks
+</a>
+
+<a href="/reports" class="btn orange">
+📄 Reports
+</a>
+
+<a href="/assistant" class="btn purple">
+🤖 Assistant
+</a>
+
+</div>
+
+</div>

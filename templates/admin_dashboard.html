@@ -1,349 +1,220 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
 
-<title>Admin Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>AgentFlow AI - Admin Dashboard</title>
 
 <style>
 
-
-button{
-
-background:#2563eb;
-color:white;
-padding:12px 20px;
-margin:8px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-size:15px;
-
-}
-
-
-button:hover{
-
-transform:scale(1.05);
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
-
     background:#0f172a;
     color:white;
-    font-family:Segoe UI;
+    min-height:100vh;
     padding:30px;
-
 }
-
 
 .container{
-
-    max-width:1200px;
+    max-width:1400px;
     margin:auto;
-
 }
 
-
-h1{
-
-    text-align:center;
-
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
 }
 
+.topbar h1{
+    margin:0;
+    color:#38bdf8;
+}
+
+.logout{
+    background:#ef4444;
+    color:white;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.logout:hover{
+    background:#dc2626;
+}
 
 .cards{
-
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:20px;
-    margin-top:40px;
-
+    margin-bottom:40px;
 }
-
 
 .card{
-
     background:#1e293b;
     padding:25px;
-    border-radius:15px;
+    border-radius:16px;
     text-align:center;
-    box-shadow:0 0 15px black;
-
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+    transition:.3s;
 }
 
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    color:#94a3b8;
+    margin-bottom:10px;
+}
 
 .card h2{
-
-    font-size:40px;
-    margin:10px;
-
+    font-size:42px;
+    color:#38bdf8;
 }
-
-
-.card p{
-
-    font-size:18px;
-
-}
-
-
 
 .menu{
-
-    margin-top:40px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:20px;
-
 }
-
-
 
 .menu a{
-
-    text-decoration:none;
-    color:white;
     background:#334155;
-    padding:20px;
-    border-radius:12px;
+    color:white;
+    text-decoration:none;
+    padding:22px;
+    border-radius:14px;
     text-align:center;
-    font-size:18px;
-
+    font-size:17px;
+    font-weight:600;
+    transition:.3s;
 }
-
 
 .menu a:hover{
-
-    background:#22c55e;
-
+    background:#2563eb;
+    transform:translateY(-3px);
 }
 
+@media(max-width:1000px){
 
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-.logout{
-
-    float:right;
-    background:#ef4444;
-    padding:10px 20px;
-    border-radius:8px;
-    text-decoration:none;
-    color:white;
-
+    .menu{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
+@media(max-width:700px){
+
+    .topbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .menu{
+        grid-template-columns:1fr;
+    }
+}
 
 </style>
 
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
+<div class="topbar">
 
-<a class="logout" href="/admin/logout">
-Logout
+<h1>👨‍💼 AgentFlow AI Admin Dashboard</h1>
+
+<a href="/admin/logout" class="logout">
+🚪 Logout
 </a>
 
-
-<h1>
-👨‍💼 Admin Dashboard
-</h1>
-
-
+</div>
 
 <div class="cards">
 
+<div class="card">
+<h3>Total Users</h3>
+<h2>{{ data.users }}</h2>
+</div>
 
 <div class="card">
-
-<h2>
-{{data.users}}
-</h2>
-
-<p>
-Total Users
-</p>
-
+<h3>Total Tasks</h3>
+<h2>{{ data.tasks }}</h2>
 </div>
-
-
 
 <div class="card">
-
-<h2>
-{{data.tasks}}
-</h2>
-
-<p>
-Total Tasks
-</p>
-
+<h3>Total Reports</h3>
+<h2>{{ data.reports }}</h2>
 </div>
-
-
 
 <div class="card">
-
-<h2>
-{{data.reports}}
-</h2>
-
-<p>
-Total Reports
-</p>
-
+<h3>Total Workflows</h3>
+<h2>{{ data.workflows }}</h2>
 </div>
 
-
-
-<div class="card">
-
-<h2>
-{{data.workflows}}
-</h2>
-
-<p>
-Total Workflows
-</p>
-
 </div>
-
-
-</div>
-
-
-
-
 
 <div class="menu">
 
+<a href="/admin/users">👥 User Management</a>
 
-<a href="/admin/users">
-👥 Manage Users
-</a>
+<a href="/admin/workflows">⚙️ Workflow Monitor</a>
 
+<a href="/admin/workflow-center">🚀 Workflow Center</a>
 
-<a href="/admin/workflows">
-⚙ Workflow Monitor
-</a>
+<a href="/admin/agent-monitor">🤖 Agent Monitor</a>
 
+<a href="/admin/agent-performance">🏆 Agent Performance</a>
 
-<a href="/admin/analytics">
-📊 Analytics
-</a>
+<a href="/admin/analytics">📊 Analytics</a>
 
 
-<a href="/admin/notifications">
-🔔 Notifications
-</a>
+<a href="/admin/system-stats">📈 System Statistics</a>
 
+<a href="/admin/system-health">🏥 System Health</a>
 
-<a href="/admin/leaderboard">
-🏆 Agent Leaderboard
-</a>
+<a href="/admin/notifications">🔔 Notifications</a>
 
+<a href="/admin/leaderboard">🥇 Agent Leaderboard</a>
 
-<a href="/admin/download-report">
-📄 Download PDF
-</a>
- 
-<a href="/admin/system-stats">
+<a href="/admin/workflow-history">📜 Workflow History</a>
 
-<button style="
-background:#0ea5e9;
-color:white;
-padding:12px 25px;
-border:none;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-">
+<a href="/admin/activity">📝 Activity Logs</a>
 
-⚙ System Statistics
+<a href="/admin/search">🔍 Global Search</a>
 
-</button>
+<a href="/admin/download-report">📄 Download PDF Report</a>
 
-</a>
-
+<a href="/admin/profile">👨‍💼 Admin Profile</a>
 
 </div>
 
-
 </div>
-
 
 </body>
-<div style="
-margin-bottom:30px;
-text-align:center;
-">
-
-
-<a href="/admin/users">
-
-<button>
-👥 Manage Users
-</button>
-
-</a>
-
-
-<a href="/admin/workflows">
-
-<button>
-⚙ Workflow Monitor
-</button>
-
-</a>
-
-
-<a href="/admin/activity">
-
-<button>
-📋 Activity Logs
-</button>
-
-</a>
-
-
-<a href="/admin/analytics">
-
-<button>
-📊 Analytics
-</button>
-
-</a>
-
-
-<a href="/admin/download-report">
-
-<button>
-📄 Download Report
-</button>
-
-</a>
-
-
-<a href="/admin/logout">
-
-<button style="
-background:#dc2626;
-">
-
-🚪 Logout
-
-</button>
-
-</a>
-
-
-</div>
 
 </html>

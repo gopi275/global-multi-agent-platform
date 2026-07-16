@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Workflow Result</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    text-align:center;
+    padding:50px;
+}
+
+.card{
+    background:#1e293b;
+    max-width:700px;
+    margin:auto;
+    padding:30px;
+    border-radius:15px;
+}
+
+h1{
+    color:#22c55e;
+}
+
+a{
+    display:inline-block;
+    margin-top:20px;
+    background:#2563eb;
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<h1>✅ Workflow Completed Successfully</h1>
+
+<a href="/admin/workflows">
+    View Workflow History
+</a>
+
+<p>
+<b>Workflow:</b>
+{{ workflow.workflow_name }}
+</p>
+
+<p>
+<b>Task:</b>
+{{ workflow.task }}
+</p>
+
+<p>
+<b>Status:</b>
+{{ workflow.status }}
+</p>
+
+<p>
+<b>Date:</b>
+{{ workflow.date }}
+</p>
+
+<a href="/dashboard">
+Back Dashboard
+</a>
+
+</div>
+
+</body>
+</html>

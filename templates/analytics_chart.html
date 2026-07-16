@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Analytics Chart</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+.bar{
+    height:40px;
+    border-radius:8px;
+    margin-top:10px;
+}
+
+.completed{
+    background:#22c55e;
+}
+
+.pending{
+    background:#eab308;
+}
+
+.failed{
+    background:#ef4444;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📈 Workflow Analytics Charts</h1>
+
+<div class="card">
+
+<h3>✅ Completed ({{ completed }})</h3>
+
+<div
+class="bar completed"
+style="width:{{ completed * 30 }}px">
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>🟡 Pending ({{ pending }})</h3>
+
+<div
+class="bar pending"
+style="width:{{ pending * 30 }}px">
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>🔴 Failed ({{ failed }})</h3>
+
+<div
+class="bar failed"
+style="width:{{ failed * 30 }}px">
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,102 +1,290 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<title>Agent Monitor</title>
+<title>AgentFlow AI - Agent Monitor</title>
+
 
 <style>
 
-body{
-background:#0f172a;
-font-family:Arial;
-color:white;
-padding:30px;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
 }
 
-h1{
-text-align:center;
-color:#38bdf8;
-margin-bottom:30px;
+
+body{
+
+    background:#020617;
+    color:white;
+    padding:30px;
+
 }
+
 
 .container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+
+    max-width:1200px;
+    margin:auto;
+
 }
+
+
+h1{
+
+    text-align:center;
+    margin-bottom:35px;
+
+}
+
+
+/* Agent Cards */
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+
+}
+
+
 
 .card{
-background:#1e293b;
-padding:25px;
-border-radius:15px;
-text-align:center;
+
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 25px #0005;
+
 }
+
+
+
+.card h2{
+
+    color:#38bdf8;
+    margin-bottom:15px;
+
+}
+
+
+
+.status{
+
+    display:inline-block;
+    padding:8px 15px;
+    border-radius:20px;
+    margin:10px 0;
+    font-weight:bold;
+
+}
+
+
 
 .running{
-color:#22c55e;
-font-weight:bold;
+
+    background:#166534;
+    color:#86efac;
+
 }
 
-.idle{
-color:#f59e0b;
-font-weight:bold;
+
+.waiting{
+
+    background:#854d0e;
+    color:#fde047;
+
 }
+
+
 
 .completed{
-color:#38bdf8;
-font-weight:bold;
+
+    background:#1d4ed8;
+    color:#bfdbfe;
+
 }
 
-.btn{
-display:block;
-width:220px;
-margin:30px auto;
-padding:12px;
-background:#2563eb;
-color:white;
-text-decoration:none;
-text-align:center;
-border-radius:10px;
+
+
+.info{
+
+    margin-top:15px;
+    color:#cbd5e1;
+
 }
+
+
+
+/* Progress */
+
+
+.progress-box{
+
+    background:#334155;
+    height:20px;
+    border-radius:20px;
+    margin-top:10px;
+
+}
+
+
+
+.progress{
+
+    height:100%;
+    background:#22c55e;
+    border-radius:20px;
+
+}
+
+
+
+/* Back Button */
+
+
+.back{
+
+    display:inline-block;
+    margin-top:40px;
+    background:#2563eb;
+    color:white;
+    padding:12px 25px;
+    border-radius:10px;
+    text-decoration:none;
+
+}
+
+
+
+.back:hover{
+
+    background:#1d4ed8;
+
+}
+
 
 </style>
 
+
 </head>
+
 
 <body>
 
-<h1>🤖 Agent Monitor</h1>
 
 <div class="container">
 
+
+<h1>
+🤖 AI Agent Monitor Dashboard
+</h1>
+
+
+
+<div class="cards">
+
+
 {% for agent in agents %}
+
 
 <div class="card">
 
-<h2>{{ agent.name }}</h2>
 
-<br>
+<h2>
+{{agent.name}}
+</h2>
+
+
 
 {% if agent.status == "Running" %}
-<p class="running">🟢 Running</p>
 
-{% elif agent.status == "Idle" %}
-<p class="idle">🟡 Idle</p>
+<span class="status running">
+🟢 {{agent.status}}
+</span>
+
+
+{% elif agent.status == "Waiting" %}
+
+<span class="status waiting">
+🟡 {{agent.status}}
+</span>
+
 
 {% else %}
-<p class="completed">🔵 Completed</p>
+
+<span class="status completed">
+🔵 {{agent.status}}
+</span>
+
 
 {% endif %}
 
+
+
+<div class="info">
+
+<p>
+📋 Tasks Completed :
+<b>{{agent.tasks}}</b>
+</p>
+
+
+<br>
+
+
+<p>
+⚡ Performance :
+<b>{{agent.performance}}%</b>
+</p>
+
+
+<div class="progress-box">
+
+<div class="progress"
+style="width:{{agent.performance}}%">
 </div>
+
+</div>
+
+
+<br>
+
+
+<p>
+⏰ Last Execution :
+{{agent.time}}
+</p>
+
+
+</div>
+
+
+</div>
+
 
 {% endfor %}
 
+
+
 </div>
 
-<a href="/dashboard" class="btn">
-⬅ Back Dashboard
+
+
+<a class="back" href="/admin">
+⬅ Back To Dashboard
 </a>
 
+
+
+</div>
+
+
 </body>
+
+
 </html>

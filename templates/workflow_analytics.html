@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Workflow Analytics</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.card h1{
+    margin:0;
+    font-size:40px;
+}
+
+.card p{
+    color:#cbd5e1;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📊 Workflow Analytics Dashboard</h1>
+
+<br>
+
+<div class="cards">
+
+<div class="card">
+<h1>{{ total_workflows }}</h1>
+<p>Total Workflows</p>
+</div>
+
+<div class="card">
+<h1>{{ completed }}</h1>
+<p>Completed</p>
+</div>
+
+<div class="card">
+<h1>{{ pending }}</h1>
+<p>Pending</p>
+</div>
+
+<div class="card">
+<h1>{{ failed }}</h1>
+<p>Failed</p>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

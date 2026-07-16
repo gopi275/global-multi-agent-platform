@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Live Workflow Monitor</title>
+
+<style>
+
+body{
+
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI;
+    padding:30px;
+
+}
+
+
+.container{
+
+    max-width:1000px;
+    margin:auto;
+
+}
+
+
+h1{
+
+    text-align:center;
+    margin-bottom:40px;
+
+}
+
+
+.card{
+
+    background:#1e293b;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 0 15px #000;
+
+}
+
+
+
+.agent{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    margin:15px 0;
+    background:#334155;
+    border-radius:10px;
+
+}
+
+
+
+.name{
+
+    font-size:20px;
+    font-weight:bold;
+
+}
+
+
+
+.status{
+
+    padding:8px 18px;
+    border-radius:20px;
+    font-weight:bold;
+
+}
+
+
+
+.completed{
+
+    background:#16a34a;
+
+}
+
+
+.running{
+
+    background:#eab308;
+    color:black;
+
+}
+
+
+.waiting{
+
+    background:#64748b;
+
+}
+
+
+
+.back{
+
+    display:inline-block;
+    margin-bottom:20px;
+    padding:10px 20px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<a href="/admin/" class="back">
+⬅ Back Dashboard
+</a>
+
+
+
+<h1>
+⚡ Live Workflow Monitor
+</h1>
+
+
+
+<div class="card">
+
+
+<h2>
+🤖 AI Multi Agent Workflow
+</h2>
+
+
+
+{% if status %}
+
+
+{% for agent,state in status.items() %}
+
+
+
+<div class="agent">
+
+
+<div class="name">
+
+🤖 {{agent}}
+
+</div>
+
+
+
+<div>
+
+
+{% if state == "Completed" %}
+
+<span class="status completed">
+🟢 {{state}}
+</span>
+
+
+{% elif state == "Running" %}
+
+
+<span class="status running">
+🟡 {{state}}
+</span>
+
+
+{% else %}
+
+
+<span class="status waiting">
+⚪ {{state}}
+</span>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+
+<h3>
+No Workflow Running
+</h3>
+
+
+<p>
+Start workflow execution to see live status.
+</p>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h2>
+Workflow Pipeline
+</h2>
+
+
+<p>
+Research Agent ➜ Coding Agent ➜ Testing Agent ➜ Report Agent
+</p>
+
+
+</div>
+
+
+
+</div>
+
+<script>
+
+setInterval(function(){
+
+    location.reload();
+
+},3000);
+
+</script>
+
+
+</body>
+
+
+</html>

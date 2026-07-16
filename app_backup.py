@@ -11,10 +11,9 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 from reportlab.pdfgen import canvas
-from flask_mail import Mail, Message
 
 from database import add_notification
-from database import workflows_collection
+
 import io
 import os
 
@@ -26,25 +25,17 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
-
-
-
 from routes.admin import admin
+
+
 
 app = Flask(__name__)
 
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 587
-app.config["MAIL_USE_TLS"] = True
-
-app.config["MAIL_USERNAME"] = "yourgmail@gmail.com"
-app.config["MAIL_PASSWORD"] = "YOUR_APP_PASSWORD"
-
-mail = Mail(app)
+app.register_blueprint(admin)
+app.secret_key = "global-agent-secret-key"
 
 app.secret_key = "AgentFlowAI@123"
 
-app.register_blueprint(admin)
 
 
 
@@ -54,7 +45,7 @@ app.register_blueprint(admin)
 
 
 client = MongoClient(
-    "mongodb+srv://gopinath:admin1234@cluster0.7cobbpr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    "mongodb+srv://....",
     serverSelectionTimeoutMS=3000
 )
 
@@ -106,18 +97,12 @@ def home():
 
 
 
-from flask import (
-    render_template,
-    request,
-    redirect,
-    session
-)
-
 # ==========================
-# User Login
+# User Login Page
 # ==========================
 
-@app.route("/login", methods=["GET", "POST"])
+
+@app.route("/login", methods=["GET","POST"])
 def login():
 
     if request.method == "POST":
@@ -125,24 +110,47 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
+
+        # Permanent Admin Login
+
+        if username == "admin" and password == "1234":
+
+            session["username"] = "admin"
+            session["role"] = "Admin"
+            session["email"] = "admin@gmail.com"
+
+            return redirect("/dashboard")
+
+
+        # Registered User Login
+
         user = users_collection.find_one({
+
             "username": username,
             "password": password
+
         })
+
 
         if user:
 
             session["username"] = user["username"]
-            session["role"] = user.get("role", "User")
+            session["role"] = user["role"]
+            session["email"] = user["email"]
 
             return redirect("/dashboard")
 
-        return render_template(
-            "login.html",
-            error="Invalid Username or Password"
-        )
+
+        else:
+
+            return "Invalid Username or Password"
+
 
     return render_template("login.html")
+
+
+
+
 
 # ==========================
 # User Dashboard
@@ -151,49 +159,16 @@ def login():
 @app.route("/dashboard")
 def dashboard():
 
-    if "username" not in session:
-        return redirect("/login")
-
-    total_tasks = tasks_collection.count_documents({})
-
-    completed_tasks = tasks_collection.count_documents({
-        "status": "Completed"
-    })
-
-    pending_tasks = tasks_collection.count_documents({
-        "status": "Pending"
-    })
-
-    total_reports = reports_collection.count_documents({})
-
-    total_workflows = workflows_collection.count_documents({})
-
-    total_agents = activity_collection.count_documents({})
-
     return render_template(
         "dashboard.html",
-        total_tasks=total_tasks,
-        completed_tasks=completed_tasks,
-        pending_tasks=pending_tasks,
-        total_reports=total_reports,
-        total_workflows=total_workflows,
-        total_agents=total_agents
+        total_tasks=0,
+        completed_tasks=0,
+        pending_tasks=0,
+        total_reports=0,
+        total_workflows=0,
+        total_chats=0,
+        total_agents=0
     )
-
-
-# ==========================
-# User Logout
-# ==========================
-
-@app.route("/logout")
-def logout():
-
-    session.clear()
-
-    return redirect("/login")
-
-
-
 
 # ==========================
 # Register User
@@ -205,21 +180,25 @@ def register():
 
     if request.method=="POST":
 
+
         user = {
 
-            "username": request.form["username"],
-            "email": request.form["email"],
-            "password": request.form["password"],
+            "username":request.form["username"],
 
-            "role": "User",
-            "status": "Offline",
-            "last_login": "Never"
+            "email":request.form["email"],
+
+            "password":request.form["password"],
+
+            "role":"User"
 
         }
 
+
         users_collection.insert_one(user)
 
+
         return redirect("/login")
+
 
     return render_template("register.html")
 
@@ -293,15 +272,13 @@ def create_task():
     tasks_collection.insert_one(task)
 
 
-    add_notification(
-        f"New Task Created: {task['task_name']}"
-    )
-
-
     return render_template(
         "task_analysis.html",
         task_name=task["task_name"]
     )
+
+
+
 
 @app.route("/complete_task/<task_id>")
 def complete_task(task_id):
@@ -729,193 +706,6 @@ def profile():
         user=user
     )
 
-
-# ==========================
-# Reports
-# ==========================
-
-@app.route("/reports")
-def reports():
-
-    reports = list(
-        reports_collection.find().sort(
-            "_id",
-            -1
-        )
-    )
-
-    return render_template(
-        "reports.html",
-        reports=reports
-    )
-
-
-
-#
-@app.route("/test-users")
-def test_users():
-
-    users = list(users_collection.find())
-
-    return str(users)
-print(app.url_map)
-
-
-
-@app.route("/fix-users")
-def fix_users():
-
-    users_collection.update_many(
-        {},
-        {
-            "$set": {
-                "role": "User",
-                "status": "Offline",
-                "last_login": "Never"
-            }
-        }
-    )
-
-    return "Users Fixed"
-
-
-
-@app.route("/user_management")
-def user_management():
-
-    users = list(users_collection.find())
-
-    return render_template(
-        "user_management.html",
-        users=users
-    )
-
-
-@app.route("/analytics")
-def analytics():
-
-    total_users = users_collection.count_documents({})
-
-    online_users = users_collection.count_documents({
-        "status":"Online"
-    })
-
-    completed_tasks = tasks_collection.count_documents({
-        "status":"Completed"
-    })
-
-    pending_tasks = tasks_collection.count_documents({
-        "status":"Pending"
-    })
-
-    total_reports = reports_collection.count_documents({})
-
-    return render_template(
-        "analytics.html",
-        total_users=total_users,
-        online_users=online_users,
-        completed_tasks=completed_tasks,
-        pending_tasks=pending_tasks,
-        total_reports=total_reports
-    )
-
-# ==========================
-# Run Workflow
-# ==========================
-
-from datetime import datetime
-
-@app.route("/run_workflow")
-def run_workflow():
-
-    print("WORKFLOW STARTED")
-
-    workflow_data = {
-
-        "workflow_name": "AI Multi Agent Workflow",
-
-        "task": "Create AI Automation System",
-
-        "status": "Completed",
-
-        "date": datetime.now().strftime(
-            "%d-%m-%Y %H:%M:%S"
-        )
-
-    }
-
-    try:
-
-        workflows_collection.insert_one(workflow_data)
-        
-
-        print("WORKFLOW SAVED")
-
-    except Exception as e:
-
-        print("DATABASE ERROR =", e)
-
-    return render_template(
-        "workflow_result.html",
-        workflow=workflow_data
-    )
-
-@app.route("/workflow_analytics")
-def workflow_analytics():
-
-    total_workflows = workflows_collection.count_documents({})
-
-    completed = workflows_collection.count_documents({
-        "status":"Completed"
-    })
-
-    pending = workflows_collection.count_documents({
-        "status":"Pending"
-    })
-
-    failed = workflows_collection.count_documents({
-        "status":"Failed"
-    })
-
-    return render_template(
-        "workflow_analytics.html",
-        total_workflows=total_workflows,
-        completed=completed,
-        pending=pending,
-        failed=failed
-    )
-
-
-@app.route("/analytics_chart")
-def analytics_chart():
-
-    completed = workflows_collection.count_documents({
-        "status": "Completed"
-    })
-
-    pending = workflows_collection.count_documents({
-        "status": "Pending"
-    })
-
-    failed = workflows_collection.count_documents({
-        "status": "Failed"
-    })
-
-    return render_template(
-        "analytics_chart.html",
-        completed=completed,
-        pending=pending,
-        failed=failed
-    )
-
-def send_email():
-
-    try:
-        print("EMAIL SENT SUCCESS")
-
-    except Exception as e:
-        print("EMAIL ERROR =", e)
-
 # ==========================
 # Run Application
 # ==========================
@@ -927,6 +717,7 @@ if __name__=="__main__":
     app.run(
     host="0.0.0.0",
     port=5000,
-    debug=True
+    debug=False
 )
-    
+
+   
